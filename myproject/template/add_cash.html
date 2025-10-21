@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<!-- Use Bootstrap 5 CDN for styling -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Cash Add</h2>
+    <form method="post" action="{% url 'add_cash' %}">
+        {% csrf_token %}
+        
+        <!-- Source input -->
+        <div class="mb-4">
+            <label for="source" class="form-label fs-5">Source</label>
+            <input type="text" id="source" name="source" required placeholder="Enter source of income" class="form-control form-control-lg shadow-sm">
+        </div>
+
+        <!-- Amount input -->
+        <div class="mb-4">
+            <label for="amount" class="form-label fs-5">Amount</label>
+            <input type="number" id="amount" name="amount" required placeholder="Enter amount" class="form-control form-control-lg shadow-sm" step="0.01">
+        </div>
+
+        <!-- Date and Time input -->
+        <div class="mb-4">
+            <label for="datetime" class="form-label fs-5">Date and Time</label>
+            <input type="datetime-local" id="datetime" name="datetime" required class="form-control form-control-lg shadow-sm">
+        </div>
+
+        <!-- Description input -->
+        <div class="mb-4">
+            <label for="description" class="form-label fs-5">Description</label>
+            <textarea id="description" name="description" rows="4" placeholder="Enter a description" class="form-control form-control-lg shadow-sm"></textarea>
+        </div>
+
+        <!-- Submit button -->
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg shadow-sm">Add Cash</button>
+        </div>
+    </form>
+</div>
+
+<!-- Custom styles for the form -->
+<style>
+    body {
+        background-color: #f3f4f6;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+        max-width: 650px;
+        background-color: #ffffff;
+        padding: 2.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(215, 215, 7, 0.1);
+    }
+
+    h2 {
+        color: #333;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #555;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 1rem;
+        font-size: 1.1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #b700ff;
+        box-shadow: 0 0 10px rgba(229, 255, 0, 0.3);
+    }
+
+    .btn-primary {
+        background-color: #8a0aa1;
+        border: none;
+        font-size: 1.1rem;
+        border-radius: 10px;
+        padding: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #b5d007;
+    }
+
+    .d-grid {
+        margin-top: 2rem;
+    }
+</style>
+
+<!-- Bootstrap JS and Popper for interactivity (if needed) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+{% endblock body %}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ddce7a;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(81, 15, 213);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ba8888;
+}
+
+.active {
+  background-color: #aa9404;
+}
+</style>
+</head>
+<body>
+
+{% include 'navbar.html' %}
+
+
+{% block body %}
+    
+{% endblock body %}
+    
+
+</body>
+</html>
+
+

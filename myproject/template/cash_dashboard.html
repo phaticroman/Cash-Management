@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #d94316;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: #99d4b5;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-top: 50px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        color: #cf13f9;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-actions {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #5e148f;
+        color: rgb(199, 137, 137);
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #c46ea7;
+    }
+
+    .btn-secondary {
+        background-color: #a7289a;
+        color: white;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #3e2188;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .table {
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #f1f1f1;
+        font-weight: bold;
+    }
+
+    .table td {
+        font-size: 1rem;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: #343a40;
+        margin-bottom: 15px;
+    }
+
+    .no-entries {
+        font-size: 1rem;
+        color: #6c757d;
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <h1>Cash Management Page</h1>
+    
+    <div class="dashboard-actions">
+        <a href="{% url 'add_cash' %}" class="btn btn-primary">Cash</a>
+        <a href="{% url 'add_expense' %}" class="btn btn-secondary">Expense</a>
+    </div>
+
+    <h2>Cash entries</h2>
+    {% if cash_entries %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Amount</th>
+                    <th>Date & Time</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in cash_entries %}
+                <tr>
+                    <td>{{ i.source }}</td>
+                    <td>${{ i.amount }}</td>
+                    <td>{{ i.datetime|date:"Y-m-d H:i" }}</td>
+                    <td>{{ i.description }}</td>
+                    <td>
+                        <a href="{% url 'update_cash' i.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_cash_view' i.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-entries">No cash entries found.</p>
+    {% endif %}
+
+    <h2> Expenses</h2>
+    {% if expenses %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Date & Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.description }}</td>
+                    <td>${{ expense.amount }}</td>
+                    <td>{{ expense.datetime|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        <a href="{% url 'update_expense' expense.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_expense' expense.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-entries">No expenses found.</p>
+    {% endif %}
+</div>
+
+{% endblock body %}
